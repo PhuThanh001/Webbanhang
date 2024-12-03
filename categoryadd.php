@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 //  else {
 //      echo "Error : Them du lieu thanh cong " . $sql ."<br>" . mysqli_error($conn);
 //  }
-
 }
 ?>
     <div class = "admin-content-right ">

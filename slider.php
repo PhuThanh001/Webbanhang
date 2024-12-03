@@ -24,56 +24,75 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .leftside {
-            width: 250px;
-            background-color: #D8BFD8; /* Light purple background */
-            color: white;
-            height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .leftside h2 {
-            margin: 0;
-            margin-bottom: 20px;
-            color: purple;
-        }
-        .leftside a {
-            text-decoration: none;
-            color: white;
-            display: block;
-            margin: 10px 0;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-        }
-        .leftside a:hover {
-            color: #FFD700; /* Gold hover effect */
-        }
-        .leftside a i {
-            margin-right: 10px;
-        }
-        .leftside a span {
-            font-size: 18px;
-        }
-        .admin-info {
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .admin-info span {
-            color: red;
-        }
-    </style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex; /* Sử dụng flexbox để bố trí slider và nội dung chính */
+        height: 100vh; /* Đặt chiều cao toàn màn hình */
+    }
+    /* Slider (bên trái) */
+    .leftside {
+        width: 25%; /* Slider chiếm 25% chiều rộng màn hình */
+        background-color: #D8BFD8; /* Light purple background */
+        color: white;
+        height: 100%; /* Chiều cao toàn màn hình */
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+    }
+    .leftside h2 {
+        margin: 0;
+        margin-bottom: 20px;
+        color: purple;
+        font-size: 24px;
+    }
+    .leftside a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        margin: 10px 0;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        padding: 8px 10px;
+        border-radius: 5px;
+    }
+    .leftside a:hover {
+        color: #FFD700; /* Gold hover effect */
+        background-color: rgba(0, 0, 0, 0.2); /* Nhấn mạnh phần nền khi hover */
+    }
+    .leftside a i {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+    .leftside a span {
+        font-size: 18px;
+    }
+    .admin-info {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .admin-info span {
+        color: red;
+    }
+    /* Nội dung chính (bên phải) */
+    .main-content {
+        width: 75%; /* Nội dung chính chiếm 75% chiều rộng màn hình */
+        height: 100%; /* Chiều cao toàn màn hình */
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+        background-color: #F9F9F9; /* Light gray background */
+    }
+</style>
+
 
     <div class="leftside">
         <h2>Ivy</h2>
         <p class="admin-info">Chào: <span>Admin❤️</span></p>
-        <a href="#"><i class="fas fa-list"></i>Danh Mục</a>
-        <a href="#"><i class="fas fa-tag"></i>Loại Sản Phẩm</a>
-        <a href="#"><i class="fas fa-palette"></i>Màu sắc</a>
+        <a href="brandlist.php"><i class="fas fa-list"></i>Danh Mục</a>
+        <a href="categorylist.php"><i class="fas fa-tag"></i>Loại Sản Phẩm</a>
+        <a href="colorlist.php"><i class="fas fa-palette"></i>Màu sắc</a>
         <a href="#"><i class="fas fa-box"></i>Sản phẩm</a>
         <a href="#"><i class="fas fa-image"></i>Ảnh Sản phẩm</a>
         <ul>
@@ -83,7 +102,7 @@
         <a href="#"><i class="fas fa-ruler-combined"></i>Size Sản Phẩm</a>
         <ul>
             <li><a href="#">Danh Sách</a></li>
-            <li><a href="#">Thêm</a></li>
+            <li><a href="productadd.php">Thêm</a></li>
         </ul>
         <a href="#"><i class="fas fa-sign-out-alt"></i>Đăng Xuất</a>
     </div>

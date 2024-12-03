@@ -6,8 +6,6 @@ include "class/brand_class.php"
 ?>
 <?php
 $brand = new brand;
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Khởi tạo biến với giá trị mặc định
     $danhmuc_id = null;

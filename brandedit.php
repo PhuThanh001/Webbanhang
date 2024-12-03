@@ -15,7 +15,6 @@ if (isset($_GET['loaisanpham_id']) && !empty($_GET['loaisanpham_id'])) {
     $resultA = null;  // Đặt $resultA là null để tránh lỗi sau này
     return;           // Hoặc có thể dùng exit để dừng tại đây nếu không thể tiếp tục
 }
-
 // Lấy dữ liệu từ phương thức get_brand
 $get_brand = $brand->get_brand($brand_id);
 if ($get_brand) {
@@ -69,6 +68,5 @@ if ($get_brand) {
 </section>
 <section>
 </section>
-
 </html>
 </body>
