@@ -27,25 +27,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="admin-content-right">
     <div class="product-add-content">
 
-        <form action="productadd.php " method="POST" enctype="multipart/form-data">
-            <label for="">Ten San Pham <span style="color: red;">*</span></label> <br>
-            <input require type="text" name="sanpham_tieude"> <br>
-            <label for="">Ma San Pham <span style="color: red;">*</span> </label> <br>
-            <input require type="text" name="sanpham_ma"> <br>
-            <label for="">Chon Danh Muc <span style="color : red;">*</span> </label> <br>
-            <select required="required" name="danhmuc_id" id="danhmuc_id">
-                <option value="">--Chon--</option>
-                <?php
-                $show_category = $product->show_category();
-                if ($show_category) {
-                    while ($result = $show_category->fetch_assoc()) {
-                ?>
-                        <option value="<?php echo $result['danhmuc_id'] ?>"><?php echo $result['danhmuc_ten']  ?></option>
-                <?php
-                    }
-                }
-                ?>
-            </select>
+    <form action="productadd.php" method="POST" enctype="multipart/form-data">
+        <label for="sanpham_tieude">Tên Sản Phẩm <span style="color: red;">*</span></label>
+        <input required type="text" name="sanpham_tieude" placeholder="Tên Sản Phẩm">
+        
+        <label for="sanpham_ma">Mã Sản Phẩm <span style="color: red;">*</span></label>
+        <input required type="text" name="sanpham_ma" placeholder="Mã Sản Phẩm">
+        
+        <label for="danhmuc_id">Chọn Danh Mục <span style="color: red;">*</span></label>
+        <select required name="danhmuc_id" id="danhmuc_id">
+            <option value="">--Chọn--</option>
+            <?php
+            $show_category = $product->show_category();
+            while ($result = $show_category->fetch_assoc()) {
+                echo "<option value='{$result['danhmuc_id']}'>{$result['danhmuc_ten']}</option>";
+            }
+            ?>
+        </select>
             <br>
             <label for=""> Chon loai san pham <span style="color: red;">*</span></label> <br>
             <select required="required" name="loaisanpham_id" id="loaisanpham_id">
@@ -73,12 +71,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p style="margin-right: 10px;">XL</p><input type="checkbox" name="sanpham-size[]" value="XL" style="margin-right: 20px;">
                 <p style="margin-right: 10px;">XXL</p><input type="checkbox" name="sanpham-size[]" value="XXL">
             </div>
-            <label for=""> Gía Sản Phẩm <span style="color : red;">*</span></label> <br>
+            <label for="" style="font-size: 12px; line-height: 1.1; display: inline-block; margin-bottom: 3px; color: #333;">
+                Giá Sản Phẩm <span style="color: red; font-size: 12px;">*</span>
+            </label> <br> 
             <input required type="text" name="sanpham_gia"> <br>
             <label for="">Chi Tiết <span style="color: red;">*</span></label> <br>
-            <textarea class="ckeditor" required name="sanpham_chitiet" cols="60" rows="5"></textarea> <br>
+            <textarea class="ckeditor" required name="sanpham_chitiet" cols="60" rows="5" style="height: 150px; resize: vertical;"></textarea>
             <label for=""> Bảo Quản <span style="color: red;">*</span> </label> <br>
-            <textarea class="ckeditor" required name="sanpham_baoquan" cols="60" rows="5"></textarea> <br>
+            <textarea class="ckeditor" required name="sanpham_baoquan" cols="60" rows="5" style="height: 150px; resize: vertical;"></textarea>
             <label for=""> Anh Đại Diện <span style="color: red;">*</span></label> <br>
             <input required type="file" name="file_name"> <br>
             <label for=""> Anh Sản Phẩm <span style="color :red;">*</span></label> <br>
@@ -105,9 +105,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     })
 </script>
 <script>
-    CKEDITOR.replace('ckeditor', {
+    CKEDITOR.replace('sanpham_chitiet', {
+        height: 100, // Giới hạn chiều cao
+        resize_enabled: true,
         filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
         filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+    });
+
+    CKEDITOR.replace('sanpham_baoquan', {
+        height: 100, // Giới hạn chiều cao
+        resize_enabled: true
     });
 </script>
 </body>

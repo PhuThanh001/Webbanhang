@@ -91,13 +91,16 @@
         <h2>Ivy</h2>
         <p class="admin-info">Chào: <span>Admin❤️</span></p>
         <a href="brandlist.php"><i class="fas fa-list"></i>Danh Mục</a>
+        <a href="brandadd.php">Thêm</a>
         <a href="categorylist.php"><i class="fas fa-tag"></i>Loại Sản Phẩm</a>
+        <a href="categoryadd.php">Thêm</a>
         <a href="colorlist.php"><i class="fas fa-palette"></i>Màu sắc</a>
+        <a href="coloradd.php">Thêm</a>
         <a href="#"><i class="fas fa-box"></i>Sản phẩm</a>
         <a href="#"><i class="fas fa-image"></i>Ảnh Sản phẩm</a>
         <ul>
             <li><a href="#">Danh Sách</a></li>
-            <li><a href="#">Thêm</a></li>
+            <li><a href="productadd.php">Thêm</a></li>
         </ul>
         <a href="#"><i class="fas fa-ruler-combined"></i>Size Sản Phẩm</a>
         <ul>

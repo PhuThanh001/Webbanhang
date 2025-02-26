@@ -17,6 +17,27 @@ class product {
         $result = $this -> db ->select($query);
         return $result ;
     }
+    public function show_product(){
+        $query = "SELECT * FROM tbl_sanpham ORDER BY sanpham_id DESC LIMIT 4";
+        $result = $this -> db ->select($query);
+        return $result ;
+    }
+    public function show_product1(){
+        $query = "SELECT * FROM tbl_sanpham ORDER BY sanpham_id DESC ";
+        $result = $this -> db ->select($query);
+        return $result ;
+    }
+    public function getTotalProducts() {
+        $query = "SELECT COUNT(*) AS total FROM tbl_sanpham";
+        $result = $this->db->select($query);
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+    
+    public function getProductsByPage($offset, $limit) {
+        $query = "SELECT * FROM tbl_sanpham LIMIT $offset, $limit";
+        return $this->db->select($query);
+    }
     public function show_Loaisanpham_ajax($danhmuc_id){
         $query = "SELECT * FROM tbl_loaisanpham WHERE danhmuc_id = $danhmuc_id ORDER BY loaisanpham_id DESC";
         $result = $this ->  db -> select($query);
@@ -27,7 +48,38 @@ class product {
         $result = $this -> db ->select($query);
         return $result ;
     }
-    public function insert_product(){
+    public function get_product_by_id($id) {
+    $query = "SELECT * FROM tbl_sanpham WHERE sanpham_id = '$id'";
+    $result = $this->db->select($query);
+    return $result ? $result->fetch_assoc() : null;
+}
+    public function get_related_products($category_id, $current_product_id)
+    {
+        $query = "SELECT * FROM tbl_sanpham WHERE danhmuc_id = '$category_id' AND sanpham_id != '$current_product_id' LIMIT 4";
+        $result = $this->db->select($query);
+        $related_products = [];
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $related_products[] = $row;
+            }
+        }
+
+        return $related_products;
+    }
+    public function searchProducts($keyword) {
+        $query = "SELECT * FROM tbl_sanpham WHERE sanpham_tieude LIKE '%$keyword%'";
+        $result = $this->db->select($query);
+    
+        $products = [];
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $products[] = $row;
+            }
+        }
+        return $products;
+    }
+    public function insert_product() {
         $sanpham_tieude = $_POST['sanpham_tieude'];
         $sanpham_ma = $_POST['sanpham_ma'];
         $danhmuc_id = $_POST['danhmuc_id'];
@@ -37,43 +89,49 @@ class product {
         $sanpham_baoquan = $_POST['sanpham_baoquan'];
         $sanpham_chitiet = $_POST['sanpham_chitiet'];
         $sanpham_anh = isset($_POST['sanpham_anh']) ? $_POST['sanpham_anh'] : null;
+        
+        // Lấy thông tin file ảnh
         $file_name = $_FILES['file_name']['name'] ?? null;
-        echo "File name: " . $file_name . "<br>"; // Debugging        
-        $file_temp = isset($_FILES['anh_ten']) ? $_FILES['anh_ten']['tmp_name'] : null;
-        $filetarget = isset($_FILES['anh_ten']['name']) ? basename($_FILES['anh_ten']['name']) : null;
-        $div = explode('.',$file_name);
-        $file_ext = strtolower(end($div));
-        $color_anh = substr(md5(time()),0,10).'.'.$file_ext;
-        $filetype = $file_name ? strtolower(trim(pathinfo($file_name, PATHINFO_EXTENSION))) : null;
-        //$filesize = isset($_FILES['anh_ten']['size']) ? $_FILES['anh_ten']['size'] : 0;
-        $filesize = $_FILES['file_name']['size'] ;
-        $upload_image = "uploads/".$color_anh;
-        if(file_exists("uploads/$color_anh")) {
-            $alert = "File đã tồn tại ";
+        $file_temp = $_FILES['file_name']['tmp_name'] ?? null;
+        $filetype = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        
+        $color_anh = substr(md5(time()), 0, 10) . '.' . $filetype; // Tạo tên file mới cho ảnh
+        $upload_dir = "uploads/"; // Đường dẫn tới thư mục lưu ảnh
+        $upload_image = $upload_dir . $color_anh; // Đường dẫn tương đối đến ảnh
+        
+        // Kiểm tra xem file có tồn tại không
+        if (file_exists($upload_image)) {
+            $alert = "File đã tồn tại";
             return $alert;
-        }   
-        else{
-            if ($filetype != "jpg" && $filetype != "jpeg" && $filetype != "png") { // Kiểm tra tất cả các định dạng
-                $alert = "Chỉ chọn file jpg,png,jpeg " ;
-                    return $alert; 
-                                  }                     
-                                  
-                                  else {
-                                    if($filesize > 1000000){
-                                        $alert = "File không được lớn 1MB" ;
-                                        return $alert ;
-                                    }
-                                    else{
-                                           
-            move_uploaded_file($_FILES['file_name']['tmp_name'],"uploads/".$_FILES['file_name']['name']);
-            $query = "INSERT INTO tbl_sanpham (sanpham_tieude,sanpham_ma,danhmuc_id,loaisanpham_id,color_id,sanpham_gia,
-            sanpham_chitiet,sanpham_baoquan,sanpham_anh) VALUES  ('$sanpham_tieude','$sanpham_ma','$danhmuc_id','$loaisanpham_id','$color_id'
-            ,'$sanpham_gia','$sanpham_chitiet','$sanpham_baoquan','$file_name')";
-            $result = $this -> db -> insert($query);
-            return $result;
-        }
+        } else {
+            // Kiểm tra định dạng file ảnh
+            if ($filetype != "jpg" && $filetype != "jpeg" && $filetype != "png") {
+                $alert = "Chỉ chọn file jpg, png, jpeg";
+                return $alert;
+            } else {
+                // Kiểm tra kích thước file
+                if ($_FILES['file_name']['size'] > 1000000) {
+                    $alert = "File không được lớn hơn 1MB";
+                    return $alert;
+                } else {
+                    // Di chuyển file ảnh vào thư mục uploads
+                    move_uploaded_file($file_temp, $upload_image);
+    
+                    // Thực hiện câu lệnh INSERT vào cơ sở dữ liệu
+                    $query = "INSERT INTO tbl_sanpham 
+                              (sanpham_tieude, sanpham_ma, danhmuc_id, loaisanpham_id, color_id, sanpham_gia, sanpham_chitiet, sanpham_baoquan, sanpham_anh) 
+                              VALUES 
+                              ('$sanpham_tieude', '$sanpham_ma', '$danhmuc_id', '$loaisanpham_id', '$color_id', '$sanpham_gia', '$sanpham_chitiet', '$sanpham_baoquan', '$upload_image')";
+    
+                    // Thực hiện truy vấn
+                    $result = $this->db->insert($query);
+    
+                    return $result;
                 }
+            }
         }
+    }
+    
         
         
         
@@ -90,4 +148,3 @@ class product {
     // }
 
 
-} 

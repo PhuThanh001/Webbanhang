@@ -44,7 +44,7 @@ $show_color = $brand->show_color();
                 <th>ID</th>
                 <th>Tên Màu</th>
                 <th>Màu</th>
-                <th>Tùy Chỉnh </th>
+                <th>Tùy Chỉnh </th> 
             </tr>
             <?php
             if($show_color) {

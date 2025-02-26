@@ -1,4 +1,946 @@
+/* General styling for the fashion-style page */
+        /* CSS chỉnh sửa thẻ label */
+        label {
+          font-size: 12px; /* Kích thước chữ nhỏ hơn */
+          line-height: 1.1; /* Giảm khoảng cách dòng */
+          display: inline-block; /* Đảm bảo căn chỉnh gọn gàng */
+          margin-bottom: 3px; /* Giảm khoảng cách phía dưới */
+      }
+
+      /* Chỉnh lại khoảng cách giữa textarea và label */
+      textarea {
+          margin-top: 5px; /* Giảm khoảng cách giữa label và textarea */
+          width: 100%; /* Đảm bảo textarea full chiều rộng container */
+          max-width: 100%; /* Đảm bảo không vượt quá container */
+          box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+          font-size: 12px; /* Đồng bộ kích thước chữ nhỏ hơn */
+          padding: 6px; /* Giảm padding bên trong */
+      }
+body.fashion-style {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #ffe6e6, #ffb3b3);
+}
+
+/* Header */
+.fashion-style-header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar */
+.fashion-style-sidebar {
+  width: 20%;
+  background: #f9f9f9;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 80px; /* Position it below the header */
+  height: calc(100% - 80px); /* Full height minus the header height */
+  overflow-y: auto;
+  z-index: 500; /* Ensures it's below the header */
+}
+
+.fashion-style-sidebar h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.fashion-style-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.fashion-style-sidebar ul li {
+  margin: 10px 0;
+}
+
+.fashion-style-sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.filter label, .sort label {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.filter select, .sort select {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+/* Main container */
+.fashion-style-container {
+  margin-left: 22%; /* Space for the sidebar */
+  margin-top: 100px; /* Space for the header */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Product items */
+
+.fashion-style-product {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.fashion-style-product-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  text-align: center;
+  width: 200px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fashion-style-product-item img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.fashion-style-product-item button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.fashion-style-product-item button:hover {
+  background-color: #555;
+}
+
+/* Cart message */
+.fashion-style-cart-message {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1100;
+}
+
+/* Footer */
+.fashion-style-footer {
+  text-align: center;
+  padding: 20px;
+  background: #333;
+  color: #fff;
+  position: relative;
+  margin-top: 20px;
+}
+.fashion-style-footer {
+  background-color: #222; /* Màu nền tối */
+  color: #f1f1f1; /* Màu chữ sáng */
+  text-align: center;
+  padding: 20px 0;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 50px; /* Tạo khoảng cách với nội dung phía trên */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng */
+}
+/* CSS cho modal xem ảnh chi tiết */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.fashion-style-footer p {
+  margin: 0;
+  opacity: 0.8; /* Làm dịu chữ để không quá sáng */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fashion-style-footer p:hover {
+  opacity: 1; /* Hiển thị rõ chữ khi hover */
+}
+
+@font-face { 
+    font-family: Yanone Kaffeesatz; 
+      src: url('../fonts/YanoneKaffeesatz-Regular.eot'); 
+      src: local("Yanone Kaffeesatz"), url('../fonts/YanoneKaffeesatz-Regular.ttf'); 
+  } 
+  
+  @font-face { 
+    font-family: News Cycle; 
+      src: url('../fonts/NewsCycle-Regular.eot'); 
+      src: local("News Cycle"), url('../fonts/NewsCycle-Regular.ttf'); 
+  } 
+  
+  html { 
+    height: 100%;
+  }
+  
+  * { 
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* tell the browser to render HTML 5 elements as block */
+  article, aside, figure, footer, header, hgroup, nav, section { 
+    display:block;
+  }
+  
+  body { 
+    font: normal .80em arial, sans-serif;
+    background: #eeeeee url(../images/pattern.png);
+    color: #444;
+  }
+  
+  p { 
+    padding: 0 0 20px 0;
+    line-height: 1.7em;
+  }
+  
+  img { 
+    border: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 { 
+    color: #362C20;
+    letter-spacing: 0em;
+    padding: 0 0 5px 0;
+  }
+  
+  h1, h2, h3 { 
+    font: normal 140% arial, sans-serif;
+    margin: 0 0 15px 0;
+    padding: 15px 0 5px 0;
+    color: #222;
+  }
+  
+  h2 { 
+    font-size: 160%;
+    padding: 9px 0 5px 0;
+  }
+  
+  h3 { 
+    font-size: 140%;
+    padding: 5px 0 0 0;
+  }
+  
+  h4, h6 { 
+    color: #00AAD5;
+    padding: 0 0 5px 0;
+    font: normal 160% 'News Cycle', arial, sans-serif;
+  }
+  
+  h5, h6 { 
+    color: #555;
+    font: italic 95% arial, sans-serif;
+    letter-spacing: normal;
+    padding: 0 0 15px 0;
+  }
+  
+  a, a:hover { 
+    outline: none;
+    text-decoration: underline;
+    color: #B30303;
+  }
+  
+  a:hover { 
+    text-decoration: none;
+  }
+  
+  blockquote { 
+    margin: 20px 0; 
+    padding: 10px 20px 0 20px;
+    border: 1px solid #E5E5DB;
+    background: #FFF;
+  }
+  
+  ul { 
+    margin: 2px 0 22px 17px;
+  }
+  
+  ul li { 
+    list-style-type: circle;
+    margin: 0 0 6px 0; 
+    padding: 0 0 4px 5px;
+    line-height: 1.5em;
+  }
+  
+  ol { 
+    margin: 8px 0 22px 20px;
+  }
+  
+  ol li { 
+    margin: 0 0 11px 0;
+  }
+  
+  .left { 
+    float: left;
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  .right { 
+    float: right; 
+    width: auto;
+    margin-left: 10px;
+  }
+  
+  .center { 
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+  }
+  
+  #main, nav, #container, #logo, #site_content, footer { 
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  
+  #main {
+    margin: 5px auto;
+    width: 940px;
+    background: transparent;
+    padding-bottom: 30px;
+  }
+  
+  
+  header { 
+    background: transparent;
+    height: 130px;
+  }
+  
+  #logo { 
+    width: 940px;
+    height: 130px;
+    background: transparent;
+    color: #888;
+    padding: 0;
+    float: left;
+  }
+  
+  #logo h1, #logo h2 { 
+    font: normal 320% 'News Cycle', arial, sans-serif;
+    border-bottom: 0;
+    text-transform: none;
+    margin: 0;
+  }
+  
+  #logo_text h1, #logo_text h1 a, #logo_text h1 a:hover { 
+    padding: 0;
+    color: #444;
+    text-decoration: none;
+  }
+  
+  #logo_text h1 a .logo_colour { 
+    color: #B30303;
+  }
+  
+  #logo_text a:hover .logo_colour { 
+    color: #444;
+  }
+  
+  #logo_text h2 { 
+    font-size: 140%;
+    padding: 0 0 0 0;
+    color: #222;
+  }
+  
+  nav { 
+    height: 44px;
+    width: 940px;
+    float: right;
+    margin: -20px auto 0 auto;
+    color: #222;
+    background: #ddd; /* Show a solid color for older browsers */
+    background: -moz-linear-gradient(#fff, #ddd);
+    background: -o-linear-gradient(#fff, #ddd);
+    background: -webkit-linear-gradient(#fff, #ddd);
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    border: 1px solid #eee;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;
+  } 
+  
+  #site_content { 
+    width: 940px;
+    overflow: hidden;
+    margin: 0px auto 0 auto;
+    padding: 15px 0 15px 0;
+  } 
+  
+  #sidebar_container { 
+    float: right;
+    width: 224px;
+    margin: 25px 0 0 0;
+  }
+  
+  .sidebar { 
+    float: right;
+    width: 200px;
+    padding: 5px 20px;
+    margin: 0 0 17px 0;
+  }
+    
+  .sidebar h3, .content h1 { 
+    padding: 0 15px 20px 0;
+    font: 230% 'News Cycle', arial, sans-serif;
+    text-shadow:  #FFF 1px 1px;
+    margin: 0 1px;
+    color: #444;
+  }
+  
+  .sidebar h3 { 
+    color: #444;
+    font: 250% 'News Cycle', arial, sans-serif;
+    padding: 0 15px 5px 0;
+  }
+  
+  .sidebar ul { 
+    margin: 0 0 15px 0;
+  } 
+  
+  .sidebar li a, .sidebar li a:hover { 
+    color: #555;
+    text-decoration: none;
+  } 
+  
+  .sidebar li a:hover { 
+    text-decoration: underline;
+  } 
+  
+  .sidebar_item, .content_item { 
+    padding: 15px 0;
+  }
+  
+  .content { 
+    text-align: left;
+    width: 670px;
+    margin: 25px 0 0 0;
+    float: left;
+    font-size: 120%;
+  }
+    
+  .content ul { 
+    margin: 2px 0 22px 0px;
+  }
+  
+  .content ul li, .sidebar ul li { 
+    list-style-type: none;
+    background: url(../images/bullet.png) no-repeat;
+    margin: 0 0 0 0; 
+    padding: 0 0 4px 28px;
+    line-height: 1.5em;
+  }
+  
+  footer { 
+    width: 950px;
+    font: 170% 'Yanone Kaffeesatz', arial, sans-serif;
+    height: 30px;
+    padding: 5px 0 20px 0;
+    text-align: center;
+    background: #ddd; /* Show a solid color for older browsers */
+    background: -moz-linear-gradient(#fff, #ddd);
+    background: -o-linear-gradient(#fff, #ddd);
+    background: -webkit-linear-gradient(#fff, #ddd);
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    border: 1px solid #eee;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;
+  }
+  
+  footer p { 
+    line-height: 1.7em;
+    padding: 0 0 10px 0;
+  }
+  
+  footer a { 
+    color: #222;
+    text-decoration: none;
+  }
+  
+  footer a:hover { 
+    color: #222;
+    text-shadow: none;
+    text-decoration: underline;
+  }
+  
+  .form_settings { 
+    margin: 15px 0 0 0;
+  }
+  
+  .form_settings p { 
+    padding: 0 0 4px 0;
+  }
+  
+  .form_settings span { 
+    float: left; 
+    width: 200px; 
+    text-align: left;
+  }
+    
+  .form_settings input, .form_settings textarea { 
+    padding: 5px; 
+    width: 299px; 
+    font: 100% arial; 
+    border: 1px solid #D5D5D5; 
+    background: #FFF; 
+    color: #47433F;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;  
+  }
+    
+  .form_settings .submit { 
+    font: 140% 'Yanone Kaffeesatz', arial, sans-serif; 
+    border: 0; 
+    width: 99px; 
+    margin: 0 0 0 212px; 
+    height: 33px;
+    padding: 2px 0 3px 0;
+    cursor: pointer; 
+    background: #ddd; /* Show a solid color for older browsers */
+    background: -moz-linear-gradient(#fff, #ddd);
+    background: -o-linear-gradient(#fff, #ddd);
+    background: -webkit-linear-gradient(#fff, #ddd);
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+    border: 1px solid #ddd;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;
+    color: #222;
+    text-shadow: 1px 1px #FFF;
+  }
+  
+  .form_settings textarea, .form_settings select { 
+    font: 100% arial; 
+    width: 299px;
+  }
+  
+  .form_settings select { 
+    width: 310px;
+  }
+  
+  .form_settings .checkbox { 
+    margin: 4px 0; 
+    padding: 0; 
+    width: 14px;
+    border: 0;
+    background: none;
+  }
+  
+  .separator { 
+    width: 100%;
+    height: 0;
+    border-top: 1px solid #D9D5CF;
+    border-bottom: 1px solid #FFF;
+    margin: 0 0 20px 0;
+  }
+    
+  table { 
+    margin: 10px 0 30px 0;
+  }
+  
+  table tr th, table tr td { 
+    background: #BBB;
+    color: #FFF;
+    padding: 7px 4px;
+    text-align: left;
+  }
+    
+  table tr td { 
+    background: #DDD;
+    color: #444;
+    border-top: 1px solid #FFF;
+  }
+  
+  /* Image Transitions */
+  ul#images {
+    margin: 0 15px 10px 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+  }
+  
+  ul#images li {
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    float: left;
+    width: 155px;
+    height: 300px;
+  }
+  
+  
+  
+  /**
+  Stylesheet for SooperFish by www.SooperThemes.com
+  Author: Jurriaan Roelofs
+  **/
+  
+  /* Configuration of menu width */
+  html body ul.sf-menu ul,html body ul.sf-menu ul li { 
+    width: 200px;
+  }
+  
+  html body ul.sf-menu ul ul { 
+    margin: 0 0 0 200px;
+  }
+  
+  /* Framework for proper showing/hiding/positioning */
+  ul.sf-menu,ul.sf-menu * { 
+    margin: 0;
+    padding: 0;
+  }
+  
+  ul.sf-menu { 
+    display: block;
+    position: relative;
+  }
+    
+  ul.sf-menu li { 
+    display: block;
+    list-style: none;
+    float: left;
+    position: relative;
+  }
+    
+  ul.sf-menu li:hover { 
+    visibility: inherit; /* fixes IE7 'sticky bug' */ 
+  }
+  
+  ul.sf-menu a { 
+    display: block;
+    position: relative;
+  }
+    
+  ul.sf-menu ul { 
+    position: absolute;
+    left: 0;
+    width: 150px; 
+    top: auto;
+    left: -999999px;
+  }
+    
+  ul.sf-menu ul a { 
+    zoom: 1; /* IE6/7 fix */ 
+  }
+  
+  ul.sf-menu ul li { 
+    float: left; /* Must always be floated otherwise there will be a rogue 1px margin-bottom in IE6/7 */
+    width: 150px;
+  }
+    
+  ul.sf-menu ul ul { 
+    top: 0;
+    margin: 0 0 0 150px;
+  }
+  
+  ul.sf-menu li:hover ul,ul.sf-menu li:focus ul,ul.sf-menu li.sf-hover ul, 
+  ul.sf-menu ul li:hover ul,ul.sf-menu ul li:focus ul,ul.sf-menu ul li.sf-hover ul,
+  ul.sf-menu ul ul li:hover ul,ul.sf-menu ul ul li:focus ul,ul.sf-menu ul ul li.sf-hover ul,
+  ul.sf-menu ul ul ul li:hover ul,ul.sf-menu ul ul ul li:focus ul,ul.sf-menu ul ul ul li.sf-hover ul { 
+    left: auto;
+  }
+    
+  ul.sf-menu li:hover ul ul,ul.sf-menu li:focus ul ul,ul.sf-menu li.sf-hover ul ul,
+  ul.sf-menu ul li:hover ul ul,ul.sf-menu ul li:focus ul ul,ul.sf-menu ul li.sf-hover ul ul,
+  ul.sf-menu ul ul li:hover ul ul,ul.sf-menu ul ul li:focus ul ul,ul.sf-menu ul ul li.sf-hover ul ul,
+  ul.sf-menu ul ul ul li:hover ul ul,ul.sf-menu ul ul ul li:focus ul ul,ul.sf-menu ul ul ul li.sf-hover ul ul { 
+    left: -999999px;
+  }
+  
+  /* autoArrows CSS */
+  span.sf-arrow { 
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    display: block;
+    background: url(../images/arrows-black.png) no-repeat 0 0;
+    overflow: hidden; /* making sure IE6 doesn't overflow and expand the box */
+    font-size: 1px;
+  }
+  
+  ul ul span.sf-arrow { 
+    right: 5px;
+    top: 20px;
+    background-position: 0 100%;
+  }
+  
+  /* Theming the menu */
+  ul#nav { 
+    float: left;
+  }
+  
+  ul#nav ul { 
+    background: #ddd;
+    margin-top: 5px;
+    padding-bottom: 15px;
+  }
+  
+  ul#nav li a { 
+    padding: 7px 25px 6px 25px;
+    font: 170% 'Yanone Kaffeesatz', arial, sans-serif;
+    text-shadow: 1px 1px #fff;
+    text-decoration: none;
+    color: #222;
+    margin-right: 2px;
+  }
+  
+  ul#nav li a:hover, ul#nav li a:focus, ul#nav li.selected a, ul#nav li.selected a:hover, ul#nav li.selected a:focus { 
+    color: #B30303;
+    text-shadow: none;
+  }
+  
+  ul#nav ul li a { 
+    color: #222;
+  }
+  
+  ul#nav ul li a:hover { 
+    color: #B30303;
+    margin-right: 2px;
+  }
+  
+  
+  
+  /* Image Transitions */
+  ul#images {
+    margin: 0 15px 10px 0;
+    padding: 0;
+    position: relative;
+  }
+  
+  ul#images li {
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    float: left;
+    width: 155px;
+    height: 300px;
+    list-style: none;
+  }
+/* Đặt font chữ */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Hộp chính của form đăng ký */
+.register-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Tiêu đề form đăng ký */
+.register-container h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Nhóm input */
+.register-container .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.register-container .input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.register-container .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Hiệu ứng khi hover input */
+.register-container .input-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Nút Đăng Ký */
+.register-container .btn-submit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+/* Hiệu ứng hover cho nút */
+.register-container .btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Footer của form */
+.register-container .footer-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.register-container .footer-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-container .footer-text a:hover {
+    text-decoration: underline;
+}
+
 /* Reset cơ bản cho tất cả các phần tử */
+/* Đặt font chữ chung */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #f8cfd1, #ffffff);
+}
+
+/* Container của form đăng nhập */
+.login-container {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #e63946;
+    margin-bottom: 20px;
+}
+
+/* Định dạng form */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Nút bấm */
+form button {
+    padding: 10px;
+    background: #e63946;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #d62839;
+}
+
+p {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+p a {
+    color: #e63946;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -48,54 +990,184 @@ header {
 }
 
 /* Sửa chiều rộng để không bị tràn */
+/* Căn chỉnh chính nội dung bên phải */
 .admin-content-right {
-    width: calc(80% - 24px); /* 24px = 12px padding trái */
-    padding: 30px 12px 0 12px;
+  width: 78%; /* Giảm một chút để tạo khoảng cách */
+  padding: 30px 16px; /* Thay đổi padding để cân đối hơn */
+  margin-left: auto; /* Căn giữa với phần bên trái */
 }
 
+/* Form thêm danh mục */
 .admin-content-right-category_add input {
-    height: 30px;
-    width: 200px;
-    padding-left: 12px;
-    margin-top: 20px;
+  height: 36px; /* Tăng chiều cao để dễ nhập liệu hơn */
+  width: 250px; /* Tăng chiều rộng để dễ thao tác hơn */
+  padding-left: 12px;
+  margin-top: 15px; /* Giảm khoảng cách để gọn gàng */
+  border: 1px solid #ccc; /* Thêm viền cho đồng bộ */
+  border-radius: 4px; /* Thêm bo tròn */
+  box-sizing: border-box;
 }
 
 .admin-content-right-category_add select {
-    outline: none;
-    padding-left: 6px;
-    height: 30px;    
+  outline: none;
+  padding-left: 6px;
+  height: 36px; /* Đồng bộ chiều cao với input */
+  border: 1px solid #ccc; /* Đồng bộ viền */
+  border-radius: 4px; /* Thêm bo tròn */
+  margin-top: 15px; /* Giống với input */
+  box-sizing: border-box;
+}
+.sieuthi {
+  list-style-type: none; /* Loại bỏ dấu chấm đầu dòng */
+  padding: 0; /* Xóa padding */
+  text-align: center; /* Căn giữa */
 }
 
+.sieuthi h1 {
+  font-size: 2.5em; /* Kích thước chữ */
+  color: #FF5733; /* Màu sắc chữ */
+  text-transform: uppercase; /* Chữ in hoa */
+  letter-spacing: 2px; /* Khoảng cách giữa các chữ cái */
+  margin: 20px 0; /* Khoảng cách trên và dưới */
+  padding: 10px; /* Padding xung quanh */
+  background-color: #f8f8f8; /* Màu nền */
+  border-radius: 10px; /* Bo góc */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  transition: transform 0.3s; /* Hiệu ứng chuyển động */
+}
+
+.sieuthi h1:hover {
+  transform: scale(1.05); /* Phóng to khi hover */
+}
 .admin-content-right-category_add button {
-    display: block;
-    margin-top: 10px;
-    width: 100px;
-    height: 30px;
-    cursor: pointer;
-    background-color: brown;
-    border: none;
-    color: white;
-    transition: all 0.3s ease;
+  display: block;
+  margin-top: 15px; /* Tăng khoảng cách để dễ nhìn */
+  width: 120px; /* Tăng chiều rộng cho cân đối */
+  height: 36px; /* Đồng bộ chiều cao với input và select */
+  cursor: pointer;
+  background-color: #8B0000; /* Màu nâu đậm hơn cho nổi bật */
+  border: none;
+  color: white;
+  font-weight: bold; /* Tăng độ dày chữ */
+  border-radius: 4px; /* Thêm bo tròn */
+  transition: all 0.3s ease;
 }
-
+.product-add-content {
+  max-height: 600px; /* Giới hạn chiều cao */
+  overflow-y: auto;  /* Bật cuộn dọc nếu nội dung quá dài */
+  padding: 10px;
+  border: 1px solid #ccc;
+}
 .admin-content-right-category_add button:hover {
-    background-color: transparent;
-    border: 1px solid brown;
-    color: brown;
+  background-color: white;
+  border: 1px solid #8B0000; /* Viền đồng bộ với màu chữ */
+  color: #8B0000;
 }
 
 /* Bảng danh sách danh mục */
 .admin-content-right-category_list table {
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  border-collapse: collapse; /* Gộp viền cho gọn gàng */
+  font-size: 14px; /* Giảm font để hiển thị nhiều dữ liệu hơn */
 }
 
 .admin-content-right-category_list table tr th,
 .admin-content-right-category_list table tr td {
-    border: 1px solid #dddddd;
+  border: 1px solid #dddddd;
+  padding: 10px; /* Thêm padding để dễ đọc */
+}
+
+.admin-content-right-category_list table tr th {
+  background-color: #f4f4f4; /* Màu nền cho header */
+  font-weight: bold;
+  text-transform: uppercase; /* Chữ in hoa */
+}
+
+.admin-content-right-category_list table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Nền xen kẽ cho hàng chẵn */
+}
+
+.admin-content-right-category_list table tr:hover {
+  background-color: #f1f1f1; /* Thêm hiệu ứng hover cho hàng */
 }
 
 .table {
     border-collapse: collapse;
+}
+
+/* ------------------- CSS mới thêm vào ------------------- */
+
+/* Thêm hiệu ứng hover cho các liên kết trong sidebar */
+.admin-content-left > ul > li > a:hover {
+    color: #2575fc;
+    text-decoration: underline;
+}
+
+/* Tăng sự nổi bật cho phần header */
+header {
+    background-color: #333;
+    color: white;
+    line-height: 100px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Thêm hiệu ứng chuyển đổi màu nền sidebar khi hover */
+.admin-content-left {
+    transition: background-color 0.3s ease;
+}
+.admin-content-left:hover {
+    background-color: #cfcfcf;
+}
+
+/* Cải thiện giao diện bảng danh mục */
+.admin-content-right-category_list table tr th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+.admin-content-right-category_list table tr:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+/* Thêm hiệu ứng nút hover trong bảng */
+.admin-content-right-category_list table tr td button {
+    background-color: #2575fc;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+.menu {
+    list-style-type: none; /* Loại bỏ dấu chấm đầu dòng */
+    padding: 0; /* Xóa khoảng cách padding */
+    display: flex; /* Sử dụng flexbox để hiển thị hàng ngang */
+}
+.menu li {
+    margin-right: 20px; /* Khoảng cách giữa các mục */
+}
+.admin-content-right-category_list table tr td button:hover {
+    background-color: #1a5fb7;
+}
+
+/* Cải thiện responsive */
+@media (max-width: 768px) {
+    .admin-content {
+        flex-direction: column;
+    }
+    .admin-content-left,
+    .admin-content-right {
+        width: 100%;
+    }
+    .admin-content-left {
+        min-height: auto;
+        padding: 20px;
+    }
+    
 }

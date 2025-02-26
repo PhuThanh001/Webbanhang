@@ -7,28 +7,19 @@
 <body>
 <?php
 include "header.php";
-include "leftside.php";
-include "lib/database.php";
+include "slider.php";
+include "class/category_class.php"
 ?>
 <?php
-$servername= "localhost";
-$database = "website_phudemo";
-$username = "root";
-$password ="Cavenet251";
-//Tao ket noi
-$conn = mysqli_connect($servername, $username ,$password, $database);
-//Kiem tra ket noi
-if (!$conn){
-    die("Connection failed: " . mysqli_connect_error());
-
-}
-
+$category = new category;
 //echo "Tuyet voi ong mat troi ,thanh cong roi nhe";
 //lay bien $danhmuc-ten truoc nhe ae 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if (isset($_POST['danhmuc_ten'])){
     $danhmuc_ten = $_POST['danhmuc_ten'];
 //them du lieu
- $sql = "INSERT INTO tbl_danhmuc1 (danhmuc_ten) VALUES ('$danhmuc_ten')";
+
+ $insert_category = $category->insert_category($danhmuc_ten);
+
 //  if (mysqli_query($conn , $sql)) {
 //      echo 'them du lieu thanh cong' ;
 //  }
