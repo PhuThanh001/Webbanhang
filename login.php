@@ -1,22 +1,44 @@
 <?php
 session_start();
-ob_start();
-include "./class/user_class.php" ;
+ob_start(); // Bật buffer output để tránh lỗi header
+include "./class/user_class.php";
 
-$db = new Database(); // Giả sử bạn có class `Database` để kết nối
-$userClass = new User($db); // Tạo đối tượng User với kết nối DB
+$db = new Database(); // Kết nối database
+$userClass = new User($db); // Tạo đối tượng User
 
-if((isset($_POST['dangnhap']))&&($_POST['dangnhap'])){
-    $user = $_POST['user'];
-    $pass = $_POST['pass'];
-    $role = $userClass->checkuser($user, $pass);
+if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
+    $username = trim($_POST['user']);
+    $password = trim($_POST['pass']);
+
+    // Kiểm tra role người dùng
+    $role = $userClass->checkuser($username, $password);
     $_SESSION['role'] = $role;
-    if($role==1) header('Location: categorylist.php'); // Sửa dấu cách ở "location"
-    else {
+
+    // Lấy thông tin user từ database
+    $userData = $userClass->getUserByCredentials($username, $password);
+
+    if ($userData) { // Đã sửa: không kiểm tra num_rows vì fetch_assoc() trả về array hoặc null
+        $_SESSION['user'] = [
+            'id' => $userData['id'],
+            'name' => $userData['name'],
+            'email' => $userData['email'],
+            'phone' => $userData['sdt'],
+            'address' => $userData['address'],
+        ];
+        if ($role == 1) {
+            header('Location: categorylist.php');
+        } else {
+            header('Location: index.php');
+        }
+        exit(); // Đảm bảo script dừng lại
+    } else {
         $txt_erro = "UserName hoặc Password không tồn tại!";
     }
 }
+ob_end_flush(); // Kết thúc buffer output
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,7 +1,5 @@
 <?php
-
 use LDAP\Result;
-
 include "header.php";
 include "leftside.php";
 include "class/category_class.php";

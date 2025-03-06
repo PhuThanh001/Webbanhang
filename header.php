@@ -11,11 +11,9 @@
         .navbar-dark {
             background-color: #1a1a1a;
         }
-
         .navbar-brand img {
             height: 40px;
         }
-
         .cart-badge {
             position: absolute;
             top: -5px;
@@ -27,7 +25,6 @@
             padding: 3px 7px;
             border-radius: 50%;
         }
-
         /* Thêm khoảng cách cho header */
         .navbar {
             margin-top: 20px;
@@ -39,7 +36,7 @@
 <body>
     <?php
     // Gọi lớp Product
-    @include_once "product_class.php";
+    @include_once "./class/product_class.php";
     $product = new Product();
 
     // Kiểm tra nếu có từ khóa tìm kiếm
@@ -69,6 +66,9 @@
                 </ul>
             </div> -->
             <!-- Icons -->
+            <a href="wishlist.php">
+    <i class="fas fa-heart"></i> Wishlist
+</a>
             <div class="d-flex align-items-center">
                 <form id="searchForm" action="index.php" method="GET" class="d-flex align-items-center">
                     <input type="text" id="searchInput" name="q" class="form-control me-2 d-none" placeholder="Tìm kiếm...">
@@ -76,17 +76,25 @@
                         <i class="fas fa-search"></i>
                     </a>
                 </form>
-                <a href="#" class="text-white me-3"><i class="fas fa-user"></i></a>
-                <?php
-                session_start();
-                // Tính tổng số lượng sản phẩm trong giỏ hàng
-                $total_quantity = 0;
-                if (isset($_SESSION['giohang'])) {
-                    foreach ($_SESSION['giohang'] as $item) {
-                        $total_quantity += $item['quantity'];
-                    }
-                }
-                ?>
+                <div class="profile-dropdown">
+                    <a href="profile.php" class="text-white me-3 profile-icon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="profile.php">Trang cá nhân</a></li>
+                        <li><a href="settings.php">Cài đặt</a></li>
+                        <li><a href="class/wishlist_class.php">Đăng xuất</a></li>
+                    </ul>
+                </div> <?php
+                        //session_start();
+                        // Tính tổng số lượng sản phẩm trong giỏ hàng
+                        $total_quantity = 0;
+                        if (isset($_SESSION['giohang'])) {
+                            foreach ($_SESSION['giohang'] as $item) {
+                                $total_quantity += $item['quantity'];
+                            }
+                        }
+                        ?>
                 <a href="cart.php" class="text-white position-relative">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-badge"><?php echo $total_quantity; ?></span>
