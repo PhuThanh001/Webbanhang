@@ -25,7 +25,6 @@ if (isset($_POST['addcart'])) {
     $tensp = $_POST['tensp'];
     $gia = floatval($_POST['gia']);
     $soluong = isset($_POST['soluong']) ? intval($_POST['soluong']) : 1;
-
     $found = false;
     foreach ($_SESSION['giohang'] as &$item) {
         if ($item['name'] === $tensp) {
@@ -34,7 +33,6 @@ if (isset($_POST['addcart'])) {
             break;
         }
     }
-
     // Nếu sản phẩm chưa có trong giỏ hàng thì thêm mới
     if (!$found) {
         $_SESSION['giohang'][] = [
@@ -47,12 +45,10 @@ if (isset($_POST['addcart'])) {
     header("Location: cart.php");
     exit;
 }
-
 // Lấy danh sách sản phẩm trong giỏ hàng
 $cart = $_SESSION['giohang'];
 $totalAmount = 0;
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -62,7 +58,6 @@ $totalAmount = 0;
     <title>Giỏ Hàng</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <div class="container">

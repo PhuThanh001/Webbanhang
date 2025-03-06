@@ -24,41 +24,25 @@ class User
     // }
     public function checkuser($user, $pass)
     {
-        // Kết nối tới cơ sở dữ liệu
-        $conn = $this->db->connectDB();
-
-        if (!$conn) {
-            die("Connection failed");
+    
+        // Truy vấn database
+        $query = "SELECT role FROM tbl_user WHERE user = '$user' AND pass = '$pass'";
+        $result = $this->db->select($query);
+    
+        if ($result && $result->num_rows > 0) {
+            $data = $result->fetch_assoc();
+            return $data['role']; // Trả về role nếu đăng nhập thành công
         }
-
-        // Thoát ký tự đặc biệt trong đầu vào
-        $user = mysqli_real_escape_string($conn, $user);
-        $pass = mysqli_real_escape_string($conn, $pass);
-
-        // Viết câu truy vấn trực tiếp
-        $query = "SELECT * FROM tbl_user WHERE user = '" . $user . "' AND pass = '" . $pass . "'";
-        $result = $conn->query($query);
-
-        // Kiểm tra và lấy kết quả
-        if ($result) {
-            $data = $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            $data = [];
-        }
-
-        // Đóng kết nối
-        $conn->close();
-        if (count($data) > 0) return $data[0]['role'];
-        else return 0;
+    
+        return 0; // Đăng nhập thất bại
     }
+    
     // Kiểm tra username đã tồn tại chưa (sử dụng MySQLi)
     public function isUsernameExists($username) {
-        $conn = $this->db->connectDB(); // Lấy kết nối
 
-        $username = mysqli_real_escape_string($conn, $username);
         $query = "SELECT COUNT(*) as count FROM tbl_user WHERE user = '$username'";
         
-        $result = $conn->query($query);
+        $result = $this->db -> select($query);
         $row = $result->fetch_assoc();
         
         return $row['count'] > 0; // Trả về true nếu username đã tồn tại
@@ -67,6 +51,32 @@ class User
         $query = "INSERT INTO tbl_user(user,pass,email) VALUES ('$username','$pass','$email')";
         $result = $this ->db ->insert($query);
         return $result; 
+    }
+    public function getUserById($id) {
+        $id = intval($id); // Ép kiểu ID để tránh SQL Injection
+        $sql = "SELECT id, name, email, sdt, address ,role FROM tbl_user WHERE id = $id";
+        $result = $this->db->select($sql);
+        return $result ? $result->fetch_assoc() : null;
+    }
+    public function getUserByCredentials($username, $password) {    
+        // Truy vấn tìm user theo username và password
+        $query = "SELECT * FROM tbl_user WHERE user = '$username' AND pass = '$password'";
+        $result = $this->db->select($query);
+    
+        // Kiểm tra và lấy dữ liệu
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc(); // Trả về thông tin user dưới dạng mảng
+        } else {
+            return null; // Không tìm thấy user
+        }
+    }
+    
+    public function update_info_user($id, $hoten, $sdt, $email, $address) {
+    
+        $query = "UPDATE tbl_user SET name='$hoten', sdt='$sdt', email='$email', address='$address' WHERE id='$id'";
+        $result = $this->db->update($query); // Đảm bảo có phương thức update()
+        
+        return $result ? "Cập nhật thành công" : "Lỗi khi cập nhật dữ liệu";
     }
 
 }
