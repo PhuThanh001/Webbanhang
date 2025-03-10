@@ -8,28 +8,136 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        .site-header {
+            position: fixed;
+            /* Cố định header trên cùng */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1a1a1a;
+            z-index: 1000;
+            /* Đặt cao để luôn nằm trên */
+            padding: 10px 0;
+        }
+
+        /* Navbar */
         .navbar-dark {
             background-color: #1a1a1a;
         }
+
+        /* Logo */
         .navbar-brand img {
             height: 40px;
+            object-fit: contain;
         }
+
+        /* Giỏ hàng - Hiển thị số lượng sản phẩm */
         .cart-badge {
             position: absolute;
             top: -5px;
             right: -10px;
             background: red;
             color: white;
-            font-size: 14px;
+            font-size: 12px;
+            /* Giảm kích thước font cho phù hợp */
             font-weight: bold;
             padding: 3px 7px;
             border-radius: 50%;
         }
-        /* Thêm khoảng cách cho header */
+
+        /* Căn giữa nội dung trong navbar */
+        /* Navbar căn giữa nội dung */
         .navbar {
-            margin-top: 20px;
-            /* Điều chỉnh giá trị này theo yêu cầu */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #1a1a1a;
+            /* Giữ màu nền tối */
+            margin-top: 10px;
+            /* Giảm khoảng cách để tránh bị lệch */
         }
+
+        /* Điều chỉnh tìm kiếm */
+        #searchForm {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        #searchInput {
+            transition: width 0.3s ease-in-out;
+            width: 0px;
+            /* Mặc định ẩn input */
+            opacity: 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* Khi input được hiển thị */
+        #searchInput.active {
+            width: 200px;
+            opacity: 1;
+        }
+
+        #searchIcon {
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+        }
+
+        /* Hiệu ứng khi rê chuột vào */
+        #searchIcon:hover {
+            color: #f8d210;
+        }
+
+        /* Tùy chỉnh icon */
+        .text-white {
+            color: white !important;
+        }
+
+        .text-white:hover {
+            opacity: 0.8;
+        }
+
+        /* Profile Dropdown */
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-dropdown .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 150px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .profile-dropdown .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .profile-dropdown .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+        }
+            .custom-navbar {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
     </style>
 </head>
 
@@ -46,62 +154,52 @@
         $searchResults = $product->searchProducts($searchKeyword);
     }
     ?>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <!-- Logo -->
-            <a class="navbar-brand" href="#">
-                <img src="https://phuongnamvina.com/img_data/images/lam-logo-ban-hang-online-dep.jpg" alt="Logo">
-            </a>
-            <!-- Toggle Button for Mobile -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Menu -->
-            <!-- <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Bộ Sưu Tập</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Khuyến Mãi - Giảm Giá</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Mới</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Áo Thun Nam | Nữ</a></li>
-                </ul>
-            </div> -->
-            <!-- Icons -->
-            <a href="wishlist.php">
-    <i class="fas fa-heart"></i> Wishlist
-</a>
-            <div class="d-flex align-items-center">
-                <form id="searchForm" action="index.php" method="GET" class="d-flex align-items-center">
-                    <input type="text" id="searchInput" name="q" class="form-control me-2 d-none" placeholder="Tìm kiếm...">
-                    <a href="#" id="searchIcon" class="text-white me-3">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </form>
-                <div class="profile-dropdown">
-                    <a href="profile.php" class="text-white me-3 profile-icon">
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="profile.php">Trang cá nhân</a></li>
-                        <li><a href="settings.php">Cài đặt</a></li>
-                        <li><a href="class/wishlist_class.php">Đăng xuất</a></li>
-                    </ul>
-                </div> <?php
-                        //session_start();
-                        // Tính tổng số lượng sản phẩm trong giỏ hàng
-                        $total_quantity = 0;
-                        if (isset($_SESSION['giohang'])) {
-                            foreach ($_SESSION['giohang'] as $item) {
-                                $total_quantity += $item['quantity'];
-                            }
-                        }
-                        ?>
-                <a href="cart.php" class="text-white position-relative">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge"><?php echo $total_quantity; ?></span>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container-fluid"> <!-- đổi từ container thành container-fluid -->
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="https://phuongnamvina.com/img_data/images/lam-logo-ban-hang-online-dep.jpg" alt="Logo">
+        </a>
+        <!-- Toggle Button for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="wishlist.php">
+            <i class="fas fa-heart"></i> Wishlist
+        </a>
+        <div class="d-flex align-items-center">
+            <form id="searchForm" action="index.php" method="GET" class="d-flex align-items-center">
+                <input type="text" id="searchInput" name="q" class="form-control me-2 d-none" placeholder="Tìm kiếm...">
+                <a href="#" id="searchIcon" class="text-white me-3">
+                    <i class="fas fa-search"></i>
                 </a>
+            </form>
+            <div class="profile-dropdown">
+                <a href="profile.php" class="text-white me-3 profile-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="profile.php">Trang cá nhân</a></li>
+                    <li><a href="settings.php">Cài đặt</a></li>
+                    <li><a href="class/wishlist_class.php">Đăng xuất</a></li>
+                </ul>
             </div>
+            <?php
+            $total_quantity = 0;
+            if (isset($_SESSION['giohang'])) {
+                foreach ($_SESSION['giohang'] as $item) {
+                    $total_quantity += $item['quantity'];
+                }
+            }
+            ?>
+            <a href="cart.php" class="text-white position-relative">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge"><?php echo $total_quantity; ?></span>
+            </a>
         </div>
-    </nav>
+    </div>
+</nav>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
