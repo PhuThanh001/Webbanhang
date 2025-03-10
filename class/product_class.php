@@ -1,5 +1,5 @@
 <?php
-include "lib/database.php"; 
+include __DIR__ . "/../lib/database.php"; 
 ?>
 
 <?php
@@ -131,20 +131,33 @@ class product {
             }
         }
     }
-    
-        
-        
-        
+    public function filterProductsByPrice($min_price, $max_price) {
+        // Ép kiểu để ngăn chặn SQL Injection
+        $min_price = (int)$min_price;
+        $max_price = (int)$max_price;
+
+        $query = "SELECT * FROM tbl_sanpham WHERE sanpham_gia BETWEEN $min_price AND $max_price ORDER BY sanpham_gia ASC";
+        $result = $this->db->select($query); // Dùng `query()` thay vì `$this->db->select()`
+
+        $products = [];
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $products[] = $row;
+            }
+        }
+
+        echo json_encode($products);
+        exit();
     }
+}
 
+// Kiểm tra nếu có yêu cầu lọc từ AJAX
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['action'] == 'filter_price') {
+    $min_price = isset($_POST['min_price']) ? (int)$_POST['min_price'] : 0;
+    $max_price = isset($_POST['max_price']) ? (int)$_POST['max_price'] : 5000;
 
-    // public function Show_Loaisanpham_ajax($danhmuc_id){
-    //     $query = "SELECT tbl_loaisanpham.* , tbl_danhmuc1.danhmuc_ten
-    //     FROM tbl_loaisanpham INNER JOIN tbl_danhmuc ON tbl_loaisanpham.danhmuc_id = tbl_danhmuc.danhmuc_id
-    //     WHERE danhmuc_id = $danhmuc_id
-    //     ORDER BY tbl_loaisanpham.loaisanpham_id DESC ";  
-    //     $result = $this -> db -> select($query); 
-    //     return $result;
-    // }
-
+    $product = new Product();
+    $product->filterProductsByPrice($min_price, $max_price);
+}
+?>
 
